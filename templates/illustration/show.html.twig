@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Illustration{% endblock %}
+
+{% block body %}
+    <h1>Illustration</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ illustration.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ illustration.titre }}</td>
+            </tr>
+            <tr>
+                <th>Defaultlang</th>
+                <td>{{ illustration.defaultlang }}</td>
+            </tr>
+            <tr>
+                <th>Imgsrc</th>
+                <td>{{ illustration.imgsrc }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ illustration.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_illustration_index') }}">back to list</a>
+
+    <a href="{{ path('app_illustration_edit', {'id': illustration.id}) }}">edit</a>
+
+    {{ include('illustration/_delete_form.html.twig') }}
+{% endblock %}
