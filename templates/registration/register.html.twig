@@ -1,19 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
-
+{% block title %}Inscription{% endblock %}
+{% block stylesheets %}
+            <link href="{{ asset('assets/css/style_auth.css') }}" rel="stylesheet" />
+{% endblock %}
 {% block body %}
-    <h1>Register</h1>
+        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">Inscription</h2>
+                        {{ form_start(registrationForm) }}
 
-    {{ form_errors(registrationForm) }}
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                        {{ form_errors(registrationForm) }}
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="{{ field_name(registrationForm.nom) }}" id="name" placeholder="Mon nom"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="{{ field_name(registrationForm.pseudo) }}" id="name" placeholder="Mon pseudo"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="{{ field_name(registrationForm.email) }}" id="email" placeholder="Mon Email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="{{field_name(registrationForm.plainPassword)}}" id="pass" placeholder="Mot de passe"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="re_pass" id="re_pass" placeholder="Répeter mon mot de passe"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" id="agree-term" class="agree-term" name="{{ field_name(registrationForm.agreeTerms) }}" value="0" {{ registrationForm.agreeTerms.vars.checked ? ' checked' : '' }} checked>
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>{% trans %}J'accepte les termes et conditions{% endtrans %} <a href="#" class="term-service">Termes du service</a></label>
+                            </div>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <div class="form-group form-button">
+                                <input type="submit" name="signup" id="signup" class="form-submit" value="S'inscrire"/>
+                            </div>
+                            <div class="form-group">
+                            <a href="{{ path('app_login') }}" class="">Je suis déjà membre</a>
+                            </div>
+                        {{ form_end(registrationForm) }}
+                    </div>
+                    <div class="signup-image">
+                        <figure><img src="{{ asset('assets/img/signup-image.jpg')}}" alt="Image d'inscription"></figure>
+                        <a href="" class="signup-image-link">Insciption de membre</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 {% endblock %}

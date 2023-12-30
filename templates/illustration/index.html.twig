@@ -1,41 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Illustration index{% endblock %}
+{% block title %}Illustrations{% endblock %}
 
 {% block body %}
-    <h1>Illustration index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Defaultlang</th>
-                <th>Imgsrc</th>
-                <th>Description</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for illustration in illustrations %}
-            <tr>
-                <td>{{ illustration.id }}</td>
-                <td>{{ illustration.titre }}</td>
-                <td>{{ illustration.defaultlang }}</td>
-                <td>{{ illustration.imgsrc }}</td>
-                <td>{{ illustration.description }}</td>
-                <td>
-                    <a href="{{ path('app_illustration_show', {'id': illustration.id}) }}">show</a>
-                    <a href="{{ path('app_illustration_edit', {'id': illustration.id}) }}">edit</a>
-                </td>
-            </tr>
+      <section class="client_section layout_padding-bottom">
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          Illustrations
+        </h2>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="client_container layout_padding2">
+      {% for illustration in illustrations %}
+        <div class="client_box b-1">
+          <div class="client-id">
+            <div class="img-box">
+              <img src="{{ asset('uploads/' ~ illustration.imgsrc) }}" alt="" />
+            </div>
+            <div class="name">
+              <h5>
+                {{ illustration.titre }}
+              </h5>
+              <p>
+                {{ illustration.defaultlang }}
+              </p>
+            </div>
+          </div>
+          <div class="detail">
+            <p>
+              {{ illustration.description|split(" ") | slice(0, 20) | join(" ") }}
+            </p>
+
+                <a class="cbutton" href="{{ path('app_illustration_show', {'id': illustration.id}) }}">Voir</a>
+                <a class="cbutton" href="{{ path('app_illustration_edit', {'id': illustration.id}) }}">Editer</a>
+            <div>
+              <div class="arrow_img">
+              </div>
+            </div>
+          </div>
+        </div>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">On n'a pas enrigistré une illustration</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_illustration_new') }}">Create new</a>
+      </div>
+      <a class="abutton" href="{{ path('app_illustration_new') }}">Créer une illustration</a>
+      
+    </div>
+  </section>
 {% endblock %}

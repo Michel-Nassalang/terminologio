@@ -1,11 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Illustration{% endblock %}
+{% block title %}Nouvelle Illustration{% endblock %}
 
 {% block body %}
-    <h1>Create new Illustration</h1>
 
-    {{ include('illustration/_form.html.twig') }}
-
-    <a href="{{ path('app_illustration_index') }}">back to list</a>
+  <section class="contact_section layout_padding">
+    <div class="container ">
+      <div class="heading_container">
+        <h2 class="">
+         Nouvelle illustration
+        </h2>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+            {{ include('illustration/_form.html.twig') }}
+            <br>
+            <a href="{{ path('app_illustration_index') }}">Voir les illustrations</a>
+        </div>
+        <div class="col-md-6">
+          <figure><img id="dynamicImg" alt="" width="100%"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}
+
+{% block javascripts %}
+    <script>
+    document.getElementById('fileInput').addEventListener('change', function() {
+    var file = this.files[0];
+    var imageType = /image.*/;
+
+    if (file.type.match(imageType)) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+        document.getElementById('dynamicImg').setAttribute('src', e.target.result);
+        }
+
+        reader.readAsDataURL(file);
+    } else {
+        alert('Le fichier sélectionné n\'est pas une image !');
+    }
+    });
+    </script>
+{% endblock %}
+
+

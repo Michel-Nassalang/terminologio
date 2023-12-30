@@ -1,13 +1,86 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Illustration{% endblock %}
+{% block title %}Edition Illustration{% endblock %}
 
 {% block body %}
-    <h1>Edit Illustration</h1>
 
-    {{ include('illustration/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_illustration_index') }}">back to list</a>
-
+  <section class="contact_section layout_padding">
+    <div class="container-fluid">
+        <div class="heading_container">
+            <h2 id="idillus" data-id="{{ illustration.id }}">
+                {{ illustration.titre }}
+            </h2>
+        </div>
+        <p>
+         {{ illustration.description }}
+        </p>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8 col-lg-4">
+          <canvas id="monCanvas" height="600" width="640"></canvas>
+        </div>
+        <div class="col-md-4">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+            {# <form action="POST" id="cform"> #}
+                <div>
+                <input type="text" id="clabel" name="{{field_name(form.label)}}" placeholder="Label" />
+                </div>
+                <div>
+                <input type="text" id="cx" name="{{field_name(form.adressex)}}" placeholder="Coordonnée x du point" />
+                </div>
+                <div>
+                <input type="text" id="cy" name="{{field_name(form.adressey)}}" placeholder="Coordonnée y du point" />
+                </div>
+                <div>
+                <input type="text" id="cdesc" class="message-box" name="{{field_name(form.description)}}" placeholder="Description" />
+                </div>
+                {# <input type="hidden" name="_csrf_token" value="{{ csrf_token('illustration') }}"> #}
+                {{ form_rest(form) }}
+                <div class="d-flex ">
+                <button type="submit" id='btn'>
+                    Ajouter un composant
+                </button>
+                </div>
+            </form>
+            {{ form_end(form) }}
+            <br>
+            <a href="{{ path('app_illustration_show', {'id': illustration.id}) }}">Voir l'illustration</a> </br> 
+            <a href="{{ path('app_illustration_index') }}">Voir les illustrations</a>
+        </div>
+        <div class="col-md-8 col-lg-4">
+            <div class="t-link-box collapsed" data-toggle="collapse" data-target="#collapseThree"
+                  aria-expanded="false" aria-controls="collapseThree">
+                  <hr>
+                  <div class="t-link-comp" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne">
+                  <div class="number">
+                    <h3>
+                      Composants
+                    </h3>
+                  </div>
+                  <hr>
+                </div>
+                  {% for composant in illustration.composants %}
+                  <div class="t-composant">
+                  <hr>
+                    <h5>
+                       --   {{ composant.label }}
+                    </h5>
+                    <p>
+                    {{ composant.description }}
+                    </p>
+                  </div>
+                  {% endfor %}
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
     {{ include('illustration/_delete_form.html.twig') }}
+{% endblock %}
+{% block javascripts %} 
+  <script type="text/javascript" src="{{ asset('assets/js/image.js') }}" async></script> 
+  <script type="text/javascript" src="{{ asset('assets/js/addcomposant.js') }}" async></script>
 {% endblock %}

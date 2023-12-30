@@ -1,38 +1,82 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Illustration{% endblock %}
+{% block title %}Illustration {{ illustration.titre }} {% endblock %}
 
 {% block body %}
     <h1>Illustration</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ illustration.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ illustration.titre }}</td>
-            </tr>
-            <tr>
-                <th>Defaultlang</th>
-                <td>{{ illustration.defaultlang }}</td>
-            </tr>
-            <tr>
-                <th>Imgsrc</th>
-                <td>{{ illustration.imgsrc }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ illustration.description }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <section class="trending_section layout_padding">
+    <div id="accordion">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-8 col-lg-4">
+            <canvas id="monCanvas" height="600" width="640"></canvas>
+          </div>
 
-    <a href="{{ path('app_illustration_index') }}">back to list</a>
+          <div class="col-md-4">
+            <div class="detail-box">
+              <div class="heading_container">
+                <h2 id="idillus" data-id="{{ illustration.id }}">
+                  {{ illustration.titre }}
+                </h2>
+              </div>
+              <div class="tab_container">
+                <div class="t-link-box" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne">
+                  <div class="number">
+                    <h5>
+                      Description
+                    </h5>
+                  </div>
+                  <hr>
+                </div>
+                  <div>
+                    <p>
+                    {{ illustration.description }}
+                    </p>
+                  </div>
+                  <br>
+                  <hr>
+                  <div class="m-0" >
+                    <a href="{{ path('app_illustration_index') }}">Voir les illustrations</a> </br> 
 
-    <a href="{{ path('app_illustration_edit', {'id': illustration.id}) }}">edit</a>
-
-    {{ include('illustration/_delete_form.html.twig') }}
+                    <a href="{{ path('app_illustration_edit', {'id': illustration.id}) }}">Editer</a>
+                  </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-8 col-lg-4">
+            <div class="t-link-box collapsed" data-toggle="collapse" data-target="#collapseThree"
+                  aria-expanded="false" aria-controls="collapseThree">
+                  <hr>
+                  
+                  <div class="t-link-comp" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne">
+                  <div class="number">
+                    <h3>
+                      Composants
+                    </h3>
+                  </div>
+                  <hr>
+                </div>
+                  {% for composant in illustration.composants %}
+                  <div class="t-composant">
+                  <hr>
+                    <h5>
+                       --   {{ composant.label }}
+                    </h5>
+                    <p>
+                    {{ composant.description }}
+                    </p>
+                  </div>
+                  {% endfor %}
+            </div>
+          </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+{% block javascripts %} 
+  <script type="text/javascript" src="{{ asset('assets/js/image.js') }}" async></script> 
 {% endblock %}

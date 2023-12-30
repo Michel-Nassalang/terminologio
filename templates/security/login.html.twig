@@ -1,31 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
-
+{% block title %}Connexion{% endblock %}
+{% block stylesheets %}
+            <link href="{{ asset('assets/css/style_auth.css') }}" rel="stylesheet" />
+{% endblock %}
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="{{ asset('assets/img/signin-image.jpg') }}" alt="Image connexion"></figure>
+                        <a href="" class="signup-image-link">Connexion Utilisateur</a>
+                    </div>
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
+                    <div class="signin-form">
+                        <h2 class="form-title">Connexion</h2>
+                        <form method="POST" class="register-form" id="login-form">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+                        {% if app.user %}
+                            <div class="mb-3">
+                                Vous êtes connecté avec {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Deconnexion</a>
+                            </div>
+                        {% endif %}
+                            <div class="form-group">
+                                <label for="Mon email"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="Mon mot de passe"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Se souvenir de moi</label>
+                            </div>
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                            <div class="form-group form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit" value="Se connecter"/>
+                            </div>
+                            <div class="form-group">
+                            <a href="{{ path('app_register') }}" class="">Je ne suis pas un membre</a>
+                            </div>
+                        </form>
+                        <div class="social-login">
+                            <span class="social-label">Se connecter par</span>
+                            <ul class="socials">
+                                <li><a href=""><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                                <li><a href=""><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                                <li><a href=""><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 {% endblock %}
