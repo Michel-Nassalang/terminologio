@@ -27,7 +27,7 @@ class Illustration
     private ?string $defaultlang = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['data'])]
+    #[Groups(['data', 'trad'])]
     private ?string $imgsrc = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
@@ -37,9 +37,13 @@ class Illustration
     #[ORM\OneToMany(mappedBy: 'illus_id', targetEntity: Composant::class)]
     private Collection $composants;
 
+    #[ORM\OneToMany(mappedBy: 'illustration', targetEntity: Traduction::class)]
+    private Collection $traductions;
+
     public function __construct()
     {
         $this->composants = new ArrayCollection();
+        $this->traductions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -121,6 +125,36 @@ class Illustration
             // set the owning side to null (unless already changed)
             if ($composant->getIllusId() === $this) {
                 $composant->setIllusId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Traduction>
+     */
+    public function getTraductions(): Collection
+    {
+        return $this->traductions;
+    }
+
+    public function addTraduction(Traduction $traduction): static
+    {
+        if (!$this->traductions->contains($traduction)) {
+            $this->traductions->add($traduction);
+            $traduction->setIllustration($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTraduction(Traduction $traduction): static
+    {
+        if ($this->traductions->removeElement($traduction)) {
+            // set the owning side to null (unless already changed)
+            if ($traduction->getIllustration() === $this) {
+                $traduction->setIllustration(null);
             }
         }
 

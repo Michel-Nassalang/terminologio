@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Traduction index{% endblock %}
+
+{% block body %}
+    <h1>Traduction index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Labeltrad</th>
+                <th>Descriptiontrad</th>
+                <th>Lang</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for traduction in traductions %}
+            <tr>
+                <td>{{ traduction.id }}</td>
+                <td>{{ traduction.labeltrad }}</td>
+                <td>{{ traduction.descriptiontrad }}</td>
+                <td>{{ traduction.lang }}</td>
+                <td>
+                    <a href="{{ path('app_traduction_show', {'id': traduction.id}) }}">show</a>
+                    <a href="{{ path('app_traduction_edit', {'id': traduction.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_traduction_new') }}">Create new</a>
+{% endblock %}

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\TraductionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TraductionRepository::class)]
 class Traduction
@@ -12,35 +13,43 @@ class Traduction
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['trad'])]
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'traductions')]
-    private ?composant $labelorig = null;
+    #[Groups(['trad'])]
+    private ?Composant $composant = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups(['trad'])]
     private ?string $labeltrad = null;
 
-    #[ORM\ManyToOne(inversedBy: 'traductions_id')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?composant $composant_id = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['trad'])]
     private ?string $descriptiontrad = null;
+
+    #[ORM\Column(length: 50)]
+    #[Groups(['trad'])]
+    private ?string $lang = null;
+
+    #[ORM\ManyToOne(inversedBy: 'traductions')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['trad'])]
+    private ?Illustration $illustration = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getLabelorig(): ?composant
+    public function getComposant(): ?Composant
     {
-        return $this->labelorig;
+        return $this->composant;
     }
 
-    public function setLabelorig(?composant $labelorig): static
+    public function setComposant(?Composant $composant): static
     {
-        $this->labelorig = $labelorig;
-
+        $this->composant = $composant;
         return $this;
     }
 
@@ -56,18 +65,6 @@ class Traduction
         return $this;
     }
 
-    public function getComposantId(): ?composant
-    {
-        return $this->composant_id;
-    }
-
-    public function setComposantId(?composant $composant_id): static
-    {
-        $this->composant_id = $composant_id;
-
-        return $this;
-    }
-
     public function getDescriptiontrad(): ?string
     {
         return $this->descriptiontrad;
@@ -76,6 +73,30 @@ class Traduction
     public function setDescriptiontrad(?string $descriptiontrad): static
     {
         $this->descriptiontrad = $descriptiontrad;
+
+        return $this;
+    }
+
+    public function getLang(): ?string
+    {
+        return $this->lang;
+    }
+
+    public function setLang(string $lang): static
+    {
+        $this->lang = $lang;
+
+        return $this;
+    }
+
+    public function getIllustration(): ?Illustration
+    {
+        return $this->illustration;
+    }
+
+    public function setIllustration(?Illustration $illustration): static
+    {
+        $this->illustration = $illustration;
 
         return $this;
     }

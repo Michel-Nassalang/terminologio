@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Traduction Illustration{% endblock %}
+
+{% block body %}
+
+  <section class="contact_section layout_padding">
+    <div class="container-fluid">
+        <div class="heading_container">
+            <h2 id="idillus" data-id="{{ illustration.id }}">
+                {{ illustration.titre }}
+            </h2>
+        </div>
+        <p>
+         {{ illustration.description }}
+        </p>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8 col-lg-4">
+          <canvas id="monCanvas" height="600" width="640"></canvas>
+        </div>
+        <div class="col-md-3 col-lg-2 ml-4">
+            <br>
+            <a class="cbutton" href="{{ path('app_illustration_show', {'id': illustration.id}) }}">Voir l'illustration</a> </br> 
+            <a class="cbutton" href="{{ path('app_illustration_index') }}">Voir les illustrations</a>
+        </div>
+        
+        <div class="col-md-6 col-lg-4">
+                <div class="t-link-box collapsed" data-toggle="collapse" data-target="#collapseThree"
+                  aria-expanded="false" aria-controls="collapseThree">
+                  <div class="t-link-comp" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+                  aria-controls="collapseOne">
+                  <div class="number">
+                    <h3>
+                      Composants
+                    </h3>
+                  </div>
+                  <hr>
+                </div>
+                <form method="post" accept-charset="UTF-8">
+                 <label for="lang">Langue de Traduction :</label>
+                  <select id="lang" name="lang">
+                      <option value="fr">Français</option>
+                      <option value="en">Anglais</option>
+                      <option value="es">Espagnol</option>
+                      <option value="pt">Portugais</option>
+                      <option value="it">Italien</option>
+                      <option value="zh">Chinois</option>
+                      <option value="ja">Japonais</option>
+                  </select>
+
+                    <button id="clang" class="mt-2" type="button">
+                      choisir la langue
+                    </button>
+                  <hr>
+                  {% for composant in illustration.composants %}
+                  <div class="t-composant">
+                  <hr>
+                  <div>
+                    <h5>
+                      {{ composant.label }}
+                    </h5>
+                    <input class="hlang" type="text" name="{{composant.id}}" placeholder="Label de traduction" />
+                  </div>
+
+                  <div>
+                    <p>
+                    {{ composant.description }}
+                    </p>
+                    {% if composant.description != '' %}
+                    <input class="hlang" type="text" name="desc{{composant.id}}" placeholder="description du composant" />
+                    {% else %}
+                    <input class="hlang" type="hidden" name="desc{{composant.id}}" placeholder="description du composant" />
+                    {% endif %}
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <div class="d-flex">
+                    <button id="blang" type="submit">
+                      traduire
+                    </button>
+                  </div>
+                </form>
+            </div>
+          </div>
+
+      </div>
+    </div>
+  </section>
+{% endblock %}
+{% block javascripts %} 
+  <script type="text/javascript" src="{{ asset('assets/js/image.js') }}" async></script> 
+  <script type="text/javascript" src="{{ asset('assets/js/addcomposant.js') }}" async></script>
+  <script type="text/javascript" src="{{ asset('assets/js/choices.js') }}" async></script>
+{% endblock %}

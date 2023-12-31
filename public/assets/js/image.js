@@ -4,20 +4,6 @@ var ctx = canvas.getContext('2d');
 var image = new Image();
 
 
-// Ajouter un gestionnaire d'événement pour le clic de la souris
-canvas.addEventListener('click', function(event) {
-  // Récupérer les coordonnées du clic de la souris par rapport à l'élément canvas
-  var rect = canvas.getBoundingClientRect();
-  var x = event.clientX - rect.left;
-  var y = event.clientY - rect.top;
-
-  // Afficher les coordonnées du clic dans la console
-  console.log('Coordonnées du clic : ' + x + ', ' + y);
-
-});
-
-
-
 var idillus = document.getElementById('idillus');
 var id = idillus.getAttribute('data-id');
 
@@ -42,12 +28,14 @@ xhr.send();
 // fonction d'affichage des composants de l'illustration
 function afficheComposants(composants) {
 
-    ctx.width = image.width;
-    ctx.height = image.height;
     // Charger l'image
   image.onload = function() {
 
-    ctx.drawImage(image, 0, 0, image.width, image.height);
+    // Effacer le canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Dessiner l'image pour qu'elle occupe tout le canvas
+    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
     // Ajouter du texte
     ctx.font = 'bold 12px Arial';
     ctx.fillStyle = 'blue';
@@ -98,3 +86,5 @@ function afficheComposants(composants) {
     ctx.moveTo(xD,yD);ctx.lineTo(xB,yB);ctx.lineTo(xE,yE); 
     ctx.stroke(); 
   } 
+
+  

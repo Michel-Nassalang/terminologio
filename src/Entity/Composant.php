@@ -15,39 +15,36 @@ class Composant
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['data'])]
+    #[Groups(['data', 'trad'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
-    #[Groups(['data'])]
+    #[Groups(['data', 'trad'])]
     private ?string $label = null;
 
     #[ORM\Column]
-    #[Groups(['data'])]
+    #[Groups(['data', 'trad'])]
     private ?float $adressex = null;
 
     #[ORM\Column]
-    #[Groups(['data'])]
+    #[Groups(['data', 'trad'])]
     private ?float $adressey = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    #[Groups(['data'])]
+    #[Groups(['data', 'trad'])]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'composants')]
     #[ORM\JoinColumn(nullable: false)]
     private ?illustration $illus_id = null;
 
-    #[ORM\OneToMany(mappedBy: 'labelorig', targetEntity: Traduction::class)]
+    #[ORM\OneToMany(mappedBy: 'composant', targetEntity: Traduction::class)]
     private Collection $traductions;
 
-    #[ORM\OneToMany(mappedBy: 'composant_id', targetEntity: Traduction::class, orphanRemoval: true)]
-    private Collection $traductions_id;
 
     public function __construct()
     {
         $this->traductions = new ArrayCollection();
-        $this->traductions_id = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -145,33 +142,4 @@ class Composant
         return $this;
     }
 
-    /**
-     * @return Collection<int, Traduction>
-     */
-    public function getTraductionsId(): Collection
-    {
-        return $this->traductions_id;
-    }
-
-    public function addTraductionsId(Traduction $traductionsId): static
-    {
-        if (!$this->traductions_id->contains($traductionsId)) {
-            $this->traductions_id->add($traductionsId);
-            $traductionsId->setComposantId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTraductionsId(Traduction $traductionsId): static
-    {
-        if ($this->traductions_id->removeElement($traductionsId)) {
-            // set the owning side to null (unless already changed)
-            if ($traductionsId->getComposantId() === $this) {
-                $traductionsId->setComposantId(null);
-            }
-        }
-
-        return $this;
-    }
 }

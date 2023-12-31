@@ -8,6 +8,8 @@ use App\Repository\IllustrationRepository;
 use App\Entity\Composant;
 use App\Form\ComposantType;
 use App\Repository\ComposantRepository;
+use App\Entity\Traduction;
+use App\Repository\TraductionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -72,6 +74,8 @@ class IllustrationController extends AbstractController
 
     
 
+    
+
     #[Route('/data/{id}', name: 'app_illustration_data', methods: ['GET'])]
     public function showIllustrationData(Illustration $illustration, SerializerInterface $serializer): JsonResponse
     {
@@ -115,28 +119,40 @@ class IllustrationController extends AbstractController
         return $this->redirectToRoute('app_illustration_index', [$illustration], Response::HTTP_SEE_OTHER);
     }
 
-    // #[Route('/{id}/composant', name: 'app_illustration_composant', methods: ['GET', 'POST'])]
-    // public function editComposant(Request $request,Illustration $illustration, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
-    // {
-    //     $composant = new Composant();
-    //     $label = $request->request->get('label');
-    //     $adressex = $request->request->get('adressex');
-    //     $adressey = $request->request->get('adressey');
-    //     $description = $request->request->get('description');
-    //     $composant->setLabel($label);
-    //     $composant->setAdressex($adressex);
-    //     $composant->setAdressey($adressey);
-    //     $composant->setDescription($description);
-    //     $composant->setIllusId($illustration);
+    #[Route('/{id}/translate', name: 'app_illustration_translate', methods: ['GET', 'POST'])]
+    public function translate(Request $request, Illustration $illustration, EntityManagerInterface $entityManager): Response
+    {
+        
+        $composants = $illustration->getComposants();
+        if ($request->isMethod('POST')) {
+            $lang = $request->request->get('lang');
+            foreach ($composants as $key => $composant) { 
+                $label = $request->request->get($composant->getId());
+                $desc = $request->request->get('desc'.$composant->getId());
+                $traduction = new Traduction();
+                $traduction->setComposant($composant);
+                $traduction->setLabeltrad($label);
+                $traduction->setDescriptiontrad($desc);
+                $traduction->setLang($lang);
+                $traduction->setIllustration($illustration);
 
-    //     $entityManager->persist($composant);
-    //     $entityManager->flush();
+                $entityManager->persist($traduction);
+                $entityManager->flush();
+            }
+            
 
-    //     $jsonComposant = $serializer->serialize($composant, 'json');
-    //     // return new JsonResponse($jsonComposant, Response::HTTP_OK, [], true);
-    //     return $this->render('illustration/edit.html.twig', [
-    //         'illustration' => $illustration,
-    //     ]);
-    // }
+        }
+
+        return $this->render('illustration/translate.html.twig', [
+            'illustration' => $illustration,
+        ]);
+    }
+    #[Route('/{id}/{lang}', name: 'app_traduction_illustration', methods: ['GET'])]
+    public function translateIllustration(TraductionRepository $traductionRepository, Illustration $illustration, $lang, SerializerInterface $serializer): JsonResponse
+    {
+        $traductions = $traductionRepository->findByLang($lang, $illustration);
+        $jsonTraductions = $serializer->serialize($traductions, 'json', ['groups' => ['trad']]);
+        return new JsonResponse($jsonTraductions, Response::HTTP_OK, [], true);
+    }
 }
 

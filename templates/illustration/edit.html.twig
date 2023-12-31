@@ -20,7 +20,7 @@
         <div class="col-md-8 col-lg-4">
           <canvas id="monCanvas" height="600" width="640"></canvas>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3 ml-4">
             {{ form_start(form) }}
             {{ form_errors(form) }}
             {# <form action="POST" id="cform"> #}
@@ -46,39 +46,42 @@
             </form>
             {{ form_end(form) }}
             <br>
-            <a href="{{ path('app_illustration_show', {'id': illustration.id}) }}">Voir l'illustration</a> </br> 
-            <a href="{{ path('app_illustration_index') }}">Voir les illustrations</a>
+            <a class="cbutton" href="{{ path('app_illustration_show', {'id': illustration.id}) }}">Voir l'illustration</a> </br> 
+            <a class="cbutton" href="{{ path('app_illustration_index') }}">Voir les illustrations</a>
         </div>
-        <div class="col-md-8 col-lg-4">
-            <div class="t-link-box collapsed" data-toggle="collapse" data-target="#collapseThree"
-                  aria-expanded="false" aria-controls="collapseThree">
-                  <hr>
-                  <div class="t-link-comp" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
+        <div class="trending_section col-md-8 col-lg-4 mt-4 mb-4">
+            <div class="detail-box">
+              <div class="heading_container">
+                <h2>
+                  Composants
+                </h2>
+              </div>
+              <div class="tab_container">
+
+                {% for composant in illustration.composants %}
+                <div class="t-link-box" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true"
                   aria-controls="collapseOne">
-                  <div class="number">
-                    <h3>
-                      Composants
-                    </h3>
-                  </div>
                   <hr>
-                </div>
-                  {% for composant in illustration.composants %}
-                  <div class="t-composant">
-                  <hr>
-                    <h5>
-                       --   {{ composant.label }}
+                  <div class="t-name">
+                    <h5  id="{{ composant.id }}" >
+                       {{ composant.label }}
                     </h5>
-                    <p>
+                  </div>
+                </div>
+                <div class="t-desc">
+                    <p id="desc{{ composant.id }}" >
                     {{ composant.description }}
                     </p>
-                  </div>
-                  {% endfor %}
+                </div>
+                {% endfor %}
+              </div>
             </div>
           </div>
       </div>
     </div>
   </section>
     {{ include('illustration/_delete_form.html.twig') }}
+    <hr>
 {% endblock %}
 {% block javascripts %} 
   <script type="text/javascript" src="{{ asset('assets/js/image.js') }}" async></script> 

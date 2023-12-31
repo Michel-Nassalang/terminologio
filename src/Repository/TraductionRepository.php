@@ -36,6 +36,22 @@ class TraductionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
+   /**
+    * @return Traduction[] Returns an array of Traduction objects
+    */
+   public function findByLang($lang, $illus): array
+   {
+       return $this->createQueryBuilder('t')
+           ->andWhere('t.lang = :val')
+           ->setParameter('val', $lang)
+           ->andWhere('t.illustration = :var')
+           ->setParameter('var', $illus)
+           ->orderBy('t.id', 'ASC')
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    public function findOneBySomeField($value): ?Traduction
 //    {
 //        return $this->createQueryBuilder('t')

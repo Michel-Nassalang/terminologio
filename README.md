@@ -6,3 +6,4 @@ php composer.phar install
 php bin/console doctrine:migrations:migrate
 ## Lancement du projet 
 php -S localhost:8000 -t public/
+#### php -S 192.168.76.76:8000 -t public/

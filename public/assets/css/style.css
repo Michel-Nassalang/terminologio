@@ -86,6 +86,7 @@ body {
 
 .header_section {
   overflow-x: hidden;
+  background-color: #2a95dd;
 }
 
 .header_section .container-fluid {
@@ -124,13 +125,13 @@ body {
 
 .custom_nav-container.navbar-expand-lg .navbar-nav .nav-item .nav-link {
   padding: 10px 15px;
-  color: #060606;
+  color: #ffffff;
   text-align: center;
   text-transform: uppercase;
 }
 
 .custom_nav-container.navbar-expand-lg .navbar-nav .nav-item.active .nav-link, .custom_nav-container.navbar-expand-lg .navbar-nav .nav-item:hover .nav-link {
-  color: #097fce;
+  color: #051724;
 }
 
 a,
@@ -527,8 +528,20 @@ a:focus {
 }
 
 .trending_section .tab_container .t-link-box {
-  margin: 65px 0;
+  margin: 25px 0;
   color: #097fce;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+.trending_section .tab_container .t-desc{
+  margin: 25px 25px 0 100px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -559,7 +572,7 @@ a:focus {
 
 .trending_section .tab_container .t-link-box hr {
   background-color: #097fce;
-  width: 60px;
+  width: 30px;
   height: 1.5px;
   border: none;
   margin: 0 65px 0 5px;
@@ -595,17 +608,22 @@ a:focus {
           flex-direction: column;
 }
 
-.trending_section .img_container .box .img-box {
-  margin: 15px;
-}
-
-.trending_section .img_container .box .img-box img {
+.trending_section .img-boxillus{
   width: 100%;
 }
 
-.trending_section .img_container .box.b-1 {
-  padding-top: 35px;
+.trending_section .img-boxillus img {
+  width: 130%;
 }
+
+#notiftrans{
+  color: #097fce;
+}
+
+#monCanvas {
+  border: 1px solid #097fce;
+}
+
 
 .discount_section .row {
   -webkit-box-align: center;
@@ -811,10 +829,10 @@ a:focus {
   margin-top: 35px;
 }
 
-.abutton{
+.abutton{ 
   display: inline-block;
-  padding: 12px 45px;
-  background-color: #097fce;
+  padding: 7px 20px;
+  background-color: #252525;
   color: #ffffff;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -822,7 +840,12 @@ a:focus {
   border-radius: 30px;
   border-radius: 30px;
   color: #fff;
-  margin-top: 35px;
+  margin-top: 10px;
+}
+.abutton:hover{
+  color: #097fce;
+  background-color: white;
+  border: 1px solid #00060a;
 }
 .cbutton{
   display: inline-block;
@@ -836,6 +859,11 @@ a:focus {
   border-radius: 30px;
   color: #fff;
   margin-top: 10px;
+}
+.cbutton:hover{
+  color: #097fce;
+  background-color: white;
+  border: 1px solid #097fce;
 }
 
 .contact_section button:hover {
