@@ -29,6 +29,14 @@ class IllustrationController extends AbstractController
         ]);
     }
 
+    #[Route('/defaulttheme', name: 'app_illustration_theme', methods: ['GET'])]
+    public function index_theme_default(IllustrationRepository $illustrationRepository): Response
+    {
+        return $this->render('theme/default.html.twig', [
+            'illustrations' => $illustrationRepository->findBy(['theme' => NULL]),
+        ]);
+    }
+
     #[Route('/new', name: 'app_illustration_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -46,7 +54,9 @@ class IllustrationController extends AbstractController
                 $uploadsDirectory,
                 $fileName
             );
-
+            if($form->get('theme')->getData() == ''){
+                $illustration->setTheme(NULL);
+            }
             $illustration->setImgsrc($fileName);
             
             $entityManager->persist($illustration);
@@ -84,7 +94,7 @@ class IllustrationController extends AbstractController
     }
 
 
-
+    
     #[Route('/{id}/edit', name: 'app_illustration_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Illustration $illustration, EntityManagerInterface $entityManager): Response
     {

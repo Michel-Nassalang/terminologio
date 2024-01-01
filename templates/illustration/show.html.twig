@@ -52,8 +52,10 @@
                     </button>
                   <hr>
                     <a class="cbutton" href="{{ path('app_illustration_index') }}">Voir les illustrations</a> </br> 
+                    {% if is_granted('ROLE_MEMBER') %}
                     <a class="cbutton" href="{{ path('app_illustration_translate', {'id': illustration.id}) }}">Proposer une traduction</a>
                     <a class="cbutton" href="{{ path('app_illustration_edit', {'id': illustration.id}) }}">Editer</a>
+                    {% endif %}
                 </div>
               </div>
             </div>

@@ -40,6 +40,9 @@ class Illustration
     #[ORM\OneToMany(mappedBy: 'illustration', targetEntity: Traduction::class)]
     private Collection $traductions;
 
+    #[ORM\ManyToOne(inversedBy: 'illustrations')]
+    private ?Theme $theme = null;
+
     public function __construct()
     {
         $this->composants = new ArrayCollection();
@@ -157,6 +160,18 @@ class Illustration
                 $traduction->setIllustration(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTheme(): ?Theme
+    {
+        return $this->theme;
+    }
+
+    public function setTheme(?Theme $theme): static
+    {
+        $this->theme = $theme;
 
         return $this;
     }

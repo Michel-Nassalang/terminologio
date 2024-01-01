@@ -80,7 +80,9 @@
       </div>
     </div>
   </section>
+  {% if is_granted('ROLE_ADMIN') %}
     {{ include('illustration/_delete_form.html.twig') }}
+  {% endif %}
     <hr>
 {% endblock %}
 {% block javascripts %} 

@@ -7,6 +7,7 @@ use App\Form\MembreType;
 use App\Repository\MembreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,13 +24,21 @@ class MembreController extends AbstractController
     }
 
     #[Route('/new', name: 'app_membre_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $membre = new Membre();
         $form = $this->createForm(MembreType::class, $membre);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // encode the plain password
+            $membre->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $membre,
+                    $form->get('password')->getData()
+                )
+            );
+            $membre->setRoles(['ROLE_MEMBER']);
             $entityManager->persist($membre);
             $entityManager->flush();
 

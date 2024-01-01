@@ -1,17 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Membre index{% endblock %}
+{% block title %}Membres Terminologio{% endblock %}
 
 {% block body %}
-    <h1>Membre index</h1>
-
+   <div class="container mt-5">
+        <div class="heading_container mb-5">
+            <h2 class="">
+            Membres de Terminologio
+            </h2>
+        </div>
+    
+    </div>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Password</th>
                 <th>Nom</th>
                 <th>Pseudo</th>
                 <th>actions</th>
@@ -20,24 +24,24 @@
         <tbody>
         {% for membre in membres %}
             <tr>
-                <td>{{ membre.id }}</td>
                 <td>{{ membre.email }}</td>
-                <td>{{ membre.roles ? membre.roles|json_encode : '' }}</td>
-                <td>{{ membre.password }}</td>
+                <td>{% for role in membre.roles %} {{role}} / {% endfor %}</td>
                 <td>{{ membre.nom }}</td>
                 <td>{{ membre.pseudo }}</td>
                 <td>
-                    <a href="{{ path('app_membre_show', {'id': membre.id}) }}">show</a>
-                    <a href="{{ path('app_membre_edit', {'id': membre.id}) }}">edit</a>
+                    <a class="cbutton" href="{{ path('app_membre_show', {'id': membre.id}) }}">Voir</a>
+                    {{ include('membre/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Pas d'utilisateurs trouvés</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_membre_new') }}">Create new</a>
+    <a class="cbutton ml-5 mb-5" href="{{ path('app_membre_new') }}">Créer un nouveau membre</a>
+    <a class="abutton ml-5 mb-5" href="{{ path('app_admin') }}">Retour à l'Administration</a>
+
 {% endblock %}

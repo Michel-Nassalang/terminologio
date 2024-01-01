@@ -1,84 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ThemeController!{% endblock %}
+{% block title %}Nos Thèmes{% endblock %}
 
 {% block body %}
 
   <section class="brand_section">
     <div class="container">
-      <div class="heading_container">
+      <div class="heading_container mt-5">
         <h2>
-          Featured Brands
+          Thèmes d'illustration
         </h2>
       </div>
       <div class="brand_container layout_padding2">
         <div class="box">
-          <a href="">
+          <a href="{{path('app_illustration_theme')}}">
             <div class="new">
               <h5>
-                New
+                Par défaut
               </h5>
             </div>
-            <div class="img-box">
-              <img src="images/slider-img.png" alt="">
-            </div>
             <div class="detail-box">
               <h6 class="price">
-                $100
+                Général
               </h6>
               <h6>
-                Chair
+                Définition sans thème
               </h6>
             </div>
           </a>
         </div>
+        {% for theme in themes %}
         <div class="box">
-          <a href="">
-            <div class="img-box">
-              <img src="images/slider-img.png" alt="">
-            </div>
+          <a href="{{path('app_theme_show', {'id':theme.id})}}">
             <div class="detail-box">
               <h6 class="price">
-                $100
+                {{theme.titre}}
               </h6>
               <h6>
-                Chair
+                {{theme.domaine}}
               </h6>
+              <p>{{theme.description}}</p>
             </div>
           </a>
         </div>
-        <div class="box">
-          <a href="">
-            <div class="img-box">
-              <img src="images/slider-img.png" alt="">
-            </div>
-            <div class="detail-box">
-              <h6 class="price">
-                $100
-              </h6>
-              <h6>
-                Chair
-              </h6>
-            </div>
-          </a>
-        </div>
-        <div class="box">
-          <a href="">
-            <div class="img-box">
-              <img src="images/slider-img.png" alt="">
-            </div>
-            <div class="detail-box">
-              <h6 class="price">
-                $100
-              </h6>
-              <h6>
-                Chair
-              </h6>
-            </div>
-          </a>
-        </div>
+        {% endfor %}
       </div>
-      <a href="{{ path('app_index') }}" class="brand-btn">
+      {% if is_granted('ROLE_MEMBER') %}
+      <a href="{{ path('app_theme_new') }}" class="abutton">
+        Créer un nouveau thème
+      </a>
+      <br>
+      {% endif %}
+      <a href="{{ path('app_index') }}" class="abutton">
         Retour à l'acceuil
       </a>
     </div>

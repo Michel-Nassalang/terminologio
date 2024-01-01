@@ -1,13 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Membre{% endblock %}
+{% block title %}Edition Membre{% endblock %}
 
 {% block body %}
-    <h1>Edit Membre</h1>
+    <section class="about_section layout_padding mt-5">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-12">
+          <div class="detail-box">
+            <div class="heading_container mb-5">
+              <h2>
+                Modification de Profil
+              </h2>
+            </div>
+          </div>
+        </div>
+    </div>
+    {{ include('membre/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    {{ include('membre/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('app_membre_index') }}">back to list</a>
+    <a class="cbutton" href="{{ path('app_membre_show', {'id':membre.id}) }}">Retour sur profil</a>
 
     {{ include('membre/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

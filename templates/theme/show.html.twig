@@ -1,25 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Illustrations{% endblock %}
+{% block title %}Theme{% endblock %}
 
 {% block body %}
 
-      <section class="client_section layout_padding-bottom">
+    <section class="about_section layout_padding">
     <div class="container">
-      <div class="heading_container mt-5 mb-1">
-        <h2>
-          Illustrations
-        </h2>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                Thème
+              </h2>
+            </div>
+              <h3>
+                {{theme.titre}} ({{theme.domaine}})
+              </h3>
+            <p>{{theme.description}}
+            </p>
+            <a href="{{ path('app_theme_index') }}" class="abutton">
+                Retour sur les thèmes
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="container">
+  </section>
 
-    {% if is_granted('ROLE_MEMBER') %}
-    <a class="cbutton" href="{{ path('app_illustration_new') }}">Créer une illustration</a>
-    {% endif %}
-    <a class="abutton ml-3" href="{{ path('app_index') }}">Retour à l'acceuil</a>
-      <div class="client_container layout_padding2 row">
-      {% for illustration in illustrations %}
+
+<section class="container client_section layout_padding-bottom">
+  <div class="client_container layout_padding2 row">
+      {% for illustration in theme.illustrations %}
         <div class="client_box b-1 col-md-4 col-lg-3">
           <div class="client-id">
             <div class="img-box">
@@ -54,11 +66,14 @@
         </div>
         {% else %}
             <tr>
-                <td colspan="6">On n'a pas enrigistré une illustration</td>
+                <td colspan="6">il n'y a pas d'illustration avec ce thème</td>
             </tr>
         {% endfor %}
       </div>
       
     </div>
   </section>
+  {% if is_granted('ROLE_ADMIN') %}
+      {{ include('theme/_delete_form.html.twig') }}
+  {% endif %}
 {% endblock %}

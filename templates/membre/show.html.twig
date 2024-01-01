@@ -3,40 +3,43 @@
 {% block title %}Membre{% endblock %}
 
 {% block body %}
-    <h1>Membre</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ membre.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ membre.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ membre.roles ? membre.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ membre.password }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ membre.nom }}</td>
-            </tr>
-            <tr>
-                <th>Pseudo</th>
-                <td>{{ membre.pseudo }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <section class="about_section layout_padding mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                Pseudo: {{membre.pseudo}}
+              </h2>
+            </div>
+              <h3>
+                Nom: {{membre.nom}}
+              </h3>
+            <h5>{{membre.email}}
+            </h5>
+            <hr>
+            <h6>Roles: {% for role in membre.roles %} {{role}} / {% endfor %}
+            </h6>
+            <a href="{{ path('app_membre_edit', {'id':membre.id}) }}" class="abutton">
+                Modifier 
+            </a>
+            {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_membre_index') }}" class="abutton">
+                Retour sur les membres
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
 
-    <a href="{{ path('app_membre_index') }}">back to list</a>
+    <a class="cbutton" href="{{ path('app_index') }}">Retour à l'accueil</a> <br>
+    <a class="cbutton" href="{{ path('app_logout') }}">Se deconnecter</a>
 
-    <a href="{{ path('app_membre_edit', {'id': membre.id}) }}">edit</a>
 
     {{ include('membre/_delete_form.html.twig') }}
+    </div>
+  </section>
+
 {% endblock %}

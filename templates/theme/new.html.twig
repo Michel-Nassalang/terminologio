@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau thème{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="heading_container mb-5">
+            <h2 class="">
+            Nouveau thème
+            </h2>
+        </div>
+        <div class="col-md-6">
+            {{ include('theme/_form.html.twig') }}
+        </div>
+
+        <a class="abutton mt-5 mb-5" href="{{ path('app_theme_index') }}">Retour sur les thèmes</a>
+    </div>
+
+{% endblock %}

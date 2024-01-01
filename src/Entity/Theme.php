@@ -33,6 +33,7 @@ class Theme
         $this->illustrations = new ArrayCollection();
     }
 
+
     public function getId(): ?int
     {
         return $this->id;
@@ -103,4 +104,5 @@ class Theme
 
         return $this;
     }
+
 }

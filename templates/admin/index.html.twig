@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Administration{% endblock %}
+
+{% block body %}
+
+<section class="about_section layout_padding mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="detail-box">
+            <div class="heading_container">
+              <h2>
+                Administration Terminologio
+              </h2>
+            </div>
+            <hr>
+              <h3>
+                Administration des utilisateurs
+              </h3>
+            <a href="{{ path('app_membre_index') }}" class="cbutton mt-2">
+                Membres
+            </a>
+            <hr>
+              <h3>
+                Administration des illustrations
+              </h3>
+            <a href="{{ path('app_illustration_index') }}" class="cbutton mt-2">
+                Illustrations
+            </a>
+
+            <hr>
+          </div>
+        </div>
+      </div>
+    <a class="cbutton mb-5" href="{{ path('app_index') }}">Retour à l'accueil</a> <br>
+      </div>
+
+
+{% endblock %}

@@ -47,9 +47,20 @@ class AppMemberAuthentificatorAuthenticator extends AbstractLoginFormAuthenticat
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
+        // Récupérez l'utilisateur à partir du token
+        $user = $token->getUser();
+        $roles = $user->getRoles();
+
+        // Redirigez en fonction des rôles
+        if (in_array('ROLE_ADMIN', $roles, true)) {
+            return new RedirectResponse($this->urlGenerator->generate('app_admin'));
+        } else {
+            // Redirection par défaut si aucun rôle n'est trouvé
+        return new RedirectResponse($this->urlGenerator->generate('app_index'));
+        }
 
         // For example:
-        return new RedirectResponse($this->urlGenerator->generate('app_illustration_index'));
+        // return new RedirectResponse($this->urlGenerator->generate('app_illustration_index'));
         // throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
     }
 

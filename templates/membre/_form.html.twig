@@ -1,4 +1,26 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="container">
+
+        {{ form_start(form) }}
+          {{ form_errors(form) }}
+            <div>
+              <input type="text" name="{{ field_name(form.nom) }}" placeholder="Nom" />
+            </div>
+            <div>
+              <input type="text" name="{{ field_name(form.email) }}" placeholder="Email" />
+            </div>
+            <div>
+              <input type="text"  name="{{ field_name(form.pseudo) }}" placeholder="Pseudo" />
+            </div>
+            <div>
+              <input type="text" name="{{ field_name(form.password) }}" placeholder="Mot de passe" />
+            </div>
+              <br>
+            {{ form_rest(form) }}
+            <div class="d-flex ">
+              <button class="cbutton" type="submit">
+                Créer
+              </button>
+            </div>
+          {{ form_end(form) }}
+          
+</div>

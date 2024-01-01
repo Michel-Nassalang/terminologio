@@ -44,7 +44,7 @@
                             <a class="nav-link" href="{{ path('app_illustration_index') }}"> Illustrations</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_theme') }}">Thèmes</a>
+                            <a class="nav-link" href="{{ path('app_theme_index') }}">Thèmes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% if app.user %} {{ path('app_membre_show', {id:app.user.id}) }} {% else %} {{ path('app_login') }} {% endif %}">Compte</a>
@@ -57,9 +57,15 @@
                         <a href="{% if app.user %} {{ path('app_membre_show', {id:app.user.id}) }} {% else %} {{ path('app_login') }} {% endif %}">
                             <img src="{{ asset('assets/img/user.png') }}" alt="">
                             <span>
-                            Login
+                                {% if app.user %} {{app.user.pseudo}}  {% else %}Se connecter {% endif %}
+                            </span> 
+                        </a>
+                        <a class="abutton ml-1 mt-0" href="{% if app.user %} {{ path('app_logout') }} {% else %} {{ path('app_login') }} {% endif %}">
+                            <span>
+                                {% if app.user %} Logout {% else %} Login{% endif %}
                             </span>
                         </a>
+                        
                         <form class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
                             <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
                         </form>

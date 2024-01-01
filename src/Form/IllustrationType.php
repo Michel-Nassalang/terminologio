@@ -3,10 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Illustration;
+use App\Entity\theme;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class IllustrationType extends AbstractType
@@ -35,6 +37,10 @@ class IllustrationType extends AbstractType
               'mapped' => false,
             ])
             ->add('description')
+            ->add('theme', EntityType::class, [
+                                'class' => theme::class,
+                'choice_label' => 'titre',
+                            ])
         ;
     }
 

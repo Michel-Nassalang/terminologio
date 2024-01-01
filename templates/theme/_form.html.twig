@@ -1,0 +1,20 @@
+        {{ form_start(form) }}
+          {{ form_errors(form) }}
+            <div>
+              <input type="text" name="{{ field_name(form.titre) }}" placeholder="Titre" />
+            </div>
+            <div>
+              <input type="text" name="{{ field_name(form.domaine) }}" placeholder="Domaine" />
+            </div>
+            <div>
+            <textarea name="{{ field_name(form.description) }}" placeholder="Description">
+            </textarea>
+            </div>
+            {{ form_rest(form) }}
+            <div class="d-flex ">
+              <button class="cbutton" type="submit">
+                Créer
+              </button>
+            </div>
+          {{ form_end(form) }}
+          

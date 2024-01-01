@@ -40,12 +40,12 @@
                       </span>
                     </h1>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                      do eiusmod tempor incididunt ut labore
+                      Terminologio, votre application de concrétisation de concepts à travers des images 
+                      bien annotées avec des possibilités de traductions d'annotations
                     </p>
                     <div class="btn-box">
                       <a href="{{ path('app_illustration_index') }}" class="btn-1">
-                        Voir plus
+                        illustrations
                       </a>
                       <a href="{{ path('app_contact') }}" class="btn-2">
                        Contact
@@ -71,12 +71,12 @@
                       </span>
                     </h1>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                      do eiusmod tempor incididunt ut labore
+                      Terminologio, votre application de concrétisation de concepts à travers des 
+                      images bien annotées avec des possibilités de traductions d'annotations
                     </p>
                     <div class="btn-box">
                       <a href="{{ path('app_illustration_index') }}" class="btn-1">
-                        Voir plus
+                        illustrations
                       </a>
                       <a href="{{ path('app_contact') }}" class="btn-2">
                        Contact
@@ -102,12 +102,12 @@
                       </span>
                     </h1>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                      do eiusmod tempor incididunt ut labore
+                      Terminologio, votre application de concrétisation de concepts à travers des 
+                      images bien annotées avec des possibilités de traductions d'annotations
                     </p>
                     <div class="btn-box">
                       <a href="{{ path('app_illustration_index') }}" class="btn-1">
-                        Voir plus
+                        illustrations
                       </a>
                       <a href="{{ path('app_contact') }}" class="btn-2">
                        Contact
@@ -133,12 +133,12 @@
                       </span>
                     </h1>
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                      do eiusmod tempor incididunt ut labore
+                      Terminologio, votre application de concrétisation de concepts à travers des 
+                      images bien annotées avec des possibilités de traductions d'annotations
                     </p>
                     <div class="btn-box">
                       <a href="{{ path('app_illustration_index') }}" class="btn-1">
-                        Voir plus
+                        illustrations
                       </a>
                       <a href="{{ path('app_contact') }}" class="btn-2">
                        Contact
@@ -263,91 +263,60 @@ le vocabulaire terminologique associé, cartographié sur une image.
                   </div>
           </div>
         </div>
+            <a class="cbutton" href="{{ path('app_illustration_index') }}">
+              Voir les illustrations
+            </a>
       </div>
     </div>
   </section>
 
    {#--------------Themes---------------- #}
 
-  <section class="brand_section mt-4">
+  <section class="brand_section">
     <div class="container">
-      <div class="heading_container">
+      <div class="heading_container mt-5">
         <h2>
-          Thèmes
+          Thèmes d'illustration
         </h2>
       </div>
       <div class="brand_container layout_padding2">
         <div class="box">
-          <a href="">
+          <a href="{{path('app_illustration_theme')}}">
             <div class="new">
               <h5>
-                New
+                Par défaut
               </h5>
             </div>
-            <div class="img-box">
-              <img src="images/slider-img.png" alt="">
-            </div>
             <div class="detail-box">
               <h6 class="price">
-                $100
+                Général
               </h6>
               <h6>
-                Chair
+                Définition sans thème
               </h6>
             </div>
           </a>
         </div>
+        {% for theme in themes %}
         <div class="box">
-          <a href="">
-            <div class="img-box">
-              <img src="images/slider-img.png" alt="">
-            </div>
+          <a href="{{path('app_theme_show', {'id':theme.id})}}">
             <div class="detail-box">
               <h6 class="price">
-                $100
+                {{theme.titre}}
               </h6>
               <h6>
-                Chair
+                {{theme.domaine}}
               </h6>
+              <p>{{theme.description}}</p>
             </div>
           </a>
         </div>
-        <div class="box">
-          <a href="">
-            <div class="img-box">
-              <img src="images/slider-img.png" alt="">
-            </div>
-            <div class="detail-box">
-              <h6 class="price">
-                $100
-              </h6>
-              <h6>
-                Chair
-              </h6>
-            </div>
-          </a>
-        </div>
-        <div class="box">
-          <a href="">
-            <div class="img-box">
-              <img src="images/slider-img.png" alt="">
-            </div>
-            <div class="detail-box">
-              <h6 class="price">
-                $100
-              </h6>
-              <h6>
-                Chair
-              </h6>
-            </div>
-          </a>
-        </div>
+        {% endfor %}
       </div>
-      <a href="{{ path('app_theme') }}" class="brand-btn">
-        Voir plus
-      </a>
     </div>
   </section>
+
+   {#--------------Contact---------------- #}
 
   <section class="contact_section layout_padding">
     <div class="container ">
